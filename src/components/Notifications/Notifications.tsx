@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import BellIcon from "../BellIcon";
+import NotificationDropdown from "./NotificationDropdown";
 import styles from "./Notifications.module.css";
 
 interface Notification {
   id: string;
   templateIdentifier: string;
   channel: string;
-  event: string;
   content: string;
   createdAt: string;
   seen: boolean;
@@ -66,52 +67,18 @@ export const Notifications: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  console.log(notifications);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
   return (
     <div className={styles.container} ref={containerRef}>
-      <div className={styles.bell} onClick={() => setIsOpen(!isOpen)}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-        </svg>
-      </div>
-
+      <BellIcon unreadCount={unreadCount} onClick={() => setIsOpen(!isOpen)} />
       {isOpen && (
-        <div className={styles.dropdown}>
-          <div className={styles.header}>Notifications</div>
-          <div className={styles.list}>
-            {loading && (
-              <div className={styles.loading}>Loading notifications...</div>
-            )}
-
-            {error && <div className={styles.error}>{error}</div>}
-
-            {!loading && !error && notifications.length === 0 && (
-              <div className={styles.empty}>No notifications</div>
-            )}
-
-            {!loading &&
-              !error &&
-              notifications.map((notification) => (
-                <div key={notification.id} className={styles.notification}>
-                  <div className={styles.title}>{notification.createdAt}</div>
-                  <div className={styles.message}>
-                    {notification.payload.text}
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
+        <NotificationDropdown
+          notifications={notifications}
+          loading={loading}
+          error={error}
+        />
       )}
     </div>
   );
