@@ -18,12 +18,14 @@ interface NotificationListProps {
   notifications: Notification[];
   loading: boolean;
   error: string | null;
+  onNotificationRead: (id: string) => Promise<void>;
 }
 
 export const NotificationList: React.FC<NotificationListProps> = ({
   notifications,
   loading,
   error,
+  onNotificationRead,
 }) => {
   if (loading) {
     return <div className={styles.loading}>Loading notifications...</div>;
@@ -46,6 +48,7 @@ export const NotificationList: React.FC<NotificationListProps> = ({
           createdAt={notification.createdAt}
           read={notification.read}
           text={notification.payload.text}
+          onRead={onNotificationRead}
         />
       ))}
     </div>

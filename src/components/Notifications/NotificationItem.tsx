@@ -7,6 +7,7 @@ interface NotificationItemProps {
   createdAt: string;
   read: boolean;
   text: string;
+  onRead: (id: string) => Promise<void>;
 }
 
 export const NotificationItem: React.FC<NotificationItemProps> = ({
@@ -14,10 +15,17 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
   createdAt,
   read,
   text,
+  onRead,
 }) => {
+  const handleClick = async () => {
+    if (!read) {
+      await onRead(id);
+    }
+  };
+
   return (
     <div
-      key={id}
+      onClick={handleClick}
       className={`${styles.notification} ${!read ? styles.unread : ""}`}
     >
       <div className={styles.title}>

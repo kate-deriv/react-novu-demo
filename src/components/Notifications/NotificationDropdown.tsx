@@ -18,12 +18,14 @@ interface NotificationDropdownProps {
   notifications: Notification[];
   loading: boolean;
   error: string | null;
+  onNotificationRead: (id: string) => Promise<void>;
 }
 
 export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   notifications,
   loading,
   error,
+  onNotificationRead,
 }) => {
   return (
     <div className={styles.dropdown}>
@@ -32,6 +34,7 @@ export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
         notifications={notifications}
         loading={loading}
         error={error}
+        onNotificationRead={onNotificationRead}
       />
     </div>
   );
