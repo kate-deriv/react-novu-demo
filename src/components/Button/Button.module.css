@@ -1,0 +1,41 @@
+.button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary {
+  background-color: #007AFF;
+  color: white;
+  border: none;
+}
+
+.primary:hover {
+  background-color: #0056b3;
+}
+
+.secondary {
+  background-color: transparent;
+  color: #007AFF;
+  border: 1px solid #007AFF;
+}
+
+.secondary:hover {
+  background-color: rgba(0, 122, 255, 0.1);
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
+}
