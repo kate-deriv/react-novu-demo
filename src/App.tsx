@@ -1,17 +1,19 @@
 import React from "react";
-import Header from "./components/Header";
-import Navigation from "./components/Navigation";
-import PurchaseButton from "./components/PurchaseButton";
 import styles from "./App.module.css";
+import NovuSection from "./components/NovuSection/NovuSection";
+import CustomSection from "./components/CustomSection/CustomSection";
 
 const App: React.FC = () => {
   return (
     <div className={styles.container}>
-      <Header title="Novu integration example" />
-      <Navigation />
-      <main className={styles.mainContent}>
-        <PurchaseButton />
-      </main>
+      {/* Custom Application Components */}
+      <CustomSection />
+
+      {/* Visual Divider */}
+      <div className={styles.divider} />
+
+      {/* Novu Integration Component */}
+      <NovuSection />
     </div>
   );
 };
